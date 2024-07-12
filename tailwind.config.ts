@@ -1,12 +1,12 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -18,6 +18,30 @@ const config = {
       },
     },
     extend: {
+      width: {
+        50: "3.125rem",
+        "38px": "38px",
+        large: "692px",
+        "lt-side": "22%",
+        "rt-side": "70%",
+      },
+      height: {
+        48: "3rem",
+        "38px": "38px",
+      },
+      colors: {
+        "custom-dark": "#475569",
+        "custom-gray": "#F0F2F5",
+        "custom-gray-100": "#667185",
+        "custom-gray-200": "#344054",
+        "custom-gray-300": "#98A2B3",
+        "custom-blue": "#0D6EFD",
+        "custom-pl-blue": "#F0F6FE",
+        "custom-green": "#0F973D",
+        "custom-pl-green": "#E7F6EC",
+        "custom-orange": "#F58A07",
+        "custom-pl-orange": "#FEF4E6",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -35,6 +59,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
