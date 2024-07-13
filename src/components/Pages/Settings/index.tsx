@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import LeftSide from "./components/LeftSide";
-import { Table, TableHead, TableHeader } from "@/components/ui/table";
 import BreadCrumbs from "@/components/common/BreadCrumbs";
 import TableComponent from "./components/TableComponent";
+import { UserProps } from "@/app/settings/types";
 
-const Settings = () => {
+const Settings: FC<{ data: UserProps[] }> = (props) => {
   const [subPath, setSubPath] = useState("Users & Roles");
   const [tableType, settableType] = useState("users");
 
@@ -44,7 +44,7 @@ const Settings = () => {
             Roles
           </button>
         </span>
-        <TableComponent />
+        <TableComponent data={props?.data} />
       </div>
     </section>
   );

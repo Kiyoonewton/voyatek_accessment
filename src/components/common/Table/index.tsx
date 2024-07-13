@@ -27,37 +27,38 @@ import {
 } from "@/components/ui/table";
 import Userform from "../Forms";
 import DeleteDialog from "../DeleteDialog";
+import { UserProps } from "@/app/settings/types";
 
-const data: Payment[] = [
-  {
-    id: "m5gr84i9",
-    name: "Taiwo Isaac",
-    amount: 316,
-    role: "Administrator",
-    email: "ken99@yahoo.com",
-  },
-  {
-    id: "3u1reuv4",
-    name: "Seun Fagbemi",
-    amount: 242,
-    role: "Sales Manager",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    name: "Dare Oyejide",
-    amount: 837,
-    role: "Sales Manager",
-    email: "Monserrat44@gmail.com",
-  },
-  {
-    id: "5kma53ae",
-    name: "StudiMatch",
-    amount: 874,
-    role: "Sales Representative",
-    email: "Silas22@gmail.com",
-  },
-];
+// const data: Payment[] = [
+//   {
+//     id: "m5gr84i9",
+//     name: "Taiwo Isaac",
+//     amount: 316,
+//     role: "Administrator",
+//     email: "ken99@yahoo.com",
+//   },
+//   {
+//     id: "3u1reuv4",
+//     name: "Seun Fagbemi",
+//     amount: 242,
+//     role: "Sales Manager",
+//     email: "Abe45@gmail.com",
+//   },
+//   {
+//     id: "derv1ws0",
+//     name: "Dare Oyejide",
+//     amount: 837,
+//     role: "Sales Manager",
+//     email: "Monserrat44@gmail.com",
+//   },
+//   {
+//     id: "5kma53ae",
+//     name: "StudiMatch",
+//     amount: 874,
+//     role: "Sales Representative",
+//     email: "Silas22@gmail.com",
+//   },
+// ];
 
 export type Payment = {
   id: string;
@@ -67,7 +68,7 @@ export type Payment = {
   email: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<UserProps>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -163,7 +164,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export function UserTable() {
+export function UserTable(props: { data: UserProps[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -173,7 +174,7 @@ export function UserTable() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: props.data,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

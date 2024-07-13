@@ -1,11 +1,12 @@
+import { UserProps } from '@/app/settings/types'
 import Userform from '@/components/common/Forms'
 import { UserTable } from '@/components/common/Table'
 import { Button } from '@/components/ui/button'
-import React from 'react'
-import { CiCirclePlus, CiSearch } from 'react-icons/ci'
+import React, { FC } from 'react'
+import { CiSearch } from 'react-icons/ci'
 import { VscListFilter } from 'react-icons/vsc'
 
-const TableComponent = () => {
+const TableComponent:FC<{data:UserProps[] }> = (props) => {
   return (
     <>
       <div className="flex justify-between p-5 bg-white">
@@ -24,7 +25,7 @@ const TableComponent = () => {
         </div>
         <Userform type="create"/>
       </div>
-      <UserTable />
+      <UserTable data={props?.data}/>
     </>
   )
 }
