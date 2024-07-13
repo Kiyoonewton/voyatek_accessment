@@ -28,21 +28,56 @@ import Image from "next/image";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CiCirclePlus } from "react-icons/ci";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createUser, editUser } from "@/app/actions";
+import { UserProps } from "@/app/settings/types";
 
-const Userform: FC<{ type: "edit" | "create" }> = (props) => {
-  const form = useForm();
+const Userform: FC<{ type: "edit" | "create"; user?: UserProps }> = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const formSchema = z.object({
+    name: z.string().min(2, {
+      message: "Fullname must be at least 2 characters.",
+    }),
+    email: z
+      .string()
+      .min(2, {
+        message: "Enter Correct email",
+      })
+      .email(),
+    password: z.string().min(8, {
+      message: "Password must be at least 8 characters.",
+    }),
+    role: z.string({
+      required_error: "Please select a role.",
+    }),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: props?.user?.name ?? "",
+      email: props?.user?.email ?? "",
+      password: props?.user?.password ?? "",
+      role: props?.user?.role ?? "",
+    },
+  });
   const [showPassword, setShowPassword] = useState(false);
-
-  const onSubmit = () => {
-    console.log("log");
+  const onSubmit = async (value: z.infer<typeof formSchema>) => {
+    if (props.user?.id) {
+      editUser(value, props.user?.id);
+      setIsOpen(false);
+    } else {
+      createUser(value);
+      setIsOpen(false);
+    }
   };
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger>
         {props?.type === "create" ? (
           <Button className="bg-blue-700 flex gap-1">
             <CiCirclePlus size={20} />
@@ -93,7 +128,7 @@ const Userform: FC<{ type: "edit" | "create" }> = (props) => {
                   placeholder: "Select Role",
                   type: "select",
                   selections: [
-                    { value: "admin", name: "Admin" },
+                    { value: "administrator", name: "Administrator" },
                     { value: "sales manager", name: "Sales Manager" },
                     {
                       value: "sales representative",
@@ -117,7 +152,7 @@ const Userform: FC<{ type: "edit" | "create" }> = (props) => {
                 <FormField
                   key={index}
                   control={form.control}
-                  name={item.name}
+                  name={item?.name as "name" | "email" | "password" | "role"}
                   render={({ field }) => (
                     <FormItem className="space-y-1">
                       <FormLabel>{item.label}</FormLabel>
@@ -147,7 +182,10 @@ const Userform: FC<{ type: "edit" | "create" }> = (props) => {
                           )}
                         </div>
                       ) : (
-                        <Select>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
                           <SelectTrigger className="w-full focus:ring-1 focus:ring-offset-0 focus:ring-custom-blue">
                             <SelectValue placeholder={item.placeholder} />
                           </SelectTrigger>

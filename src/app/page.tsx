@@ -1,5 +1,12 @@
+import { Metadata } from "next";
+import NotFound from "./not-found";
+
 export default function Home() {
-  return (
-    <h1>Home Page</h1>
-  );
+  return <NotFound />;
 }
+
+export const metadata: Metadata = {
+  title: "Welcome to the the Voyatek",
+  description:
+    "Here we Cater for your travelling and well being, explore our website",
+};

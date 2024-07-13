@@ -29,43 +29,23 @@ import Userform from "../Forms";
 import DeleteDialog from "../DeleteDialog";
 import { UserProps } from "@/app/settings/types";
 
-// const data: Payment[] = [
-//   {
-//     id: "m5gr84i9",
-//     name: "Taiwo Isaac",
-//     amount: 316,
-//     role: "Administrator",
-//     email: "ken99@yahoo.com",
-//   },
-//   {
-//     id: "3u1reuv4",
-//     name: "Seun Fagbemi",
-//     amount: 242,
-//     role: "Sales Manager",
-//     email: "Abe45@gmail.com",
-//   },
-//   {
-//     id: "derv1ws0",
-//     name: "Dare Oyejide",
-//     amount: 837,
-//     role: "Sales Manager",
-//     email: "Monserrat44@gmail.com",
-//   },
-//   {
-//     id: "5kma53ae",
-//     name: "StudiMatch",
-//     amount: 874,
-//     role: "Sales Representative",
-//     email: "Silas22@gmail.com",
-//   },
-// ];
-
 export type Payment = {
   id: string;
   name: string;
   amount: number;
   role: string;
   email: string;
+};
+
+const setColor = (role: string) => {
+  switch (role) {
+    case "sales manager":
+      return `text-custom-green bg-custom-pl-green`;
+    case "sales representative":
+      return `text-custom-orange bg-custom-pl-orange`;
+    default:
+      return `text-custom-blue bg-custom-pl-blue`;
+  }
 };
 
 export const columns: ColumnDef<UserProps>[] = [
@@ -137,14 +117,18 @@ export const columns: ColumnDef<UserProps>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div
-        className="capitalize text-custom-blue bg-custom-pl-blue py-2 px-4 rounded-3xl w-auto"
-        style={{ width: "fit-content" }}
-      >
-        {row.getValue("role")}
-      </div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <div
+          className={`capitalize ${setColor(
+            row.getValue("role"),
+          )} py-2 px-4 rounded-3xl w-auto`}
+          style={{ width: "fit-content" }}
+        >
+          {row.getValue("role")}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "action",
@@ -155,12 +139,14 @@ export const columns: ColumnDef<UserProps>[] = [
         </Button>
       );
     },
-    cell: ({ row }) => (
-      <div className="flex gap-8">
-        <Userform type="edit" />
-        <DeleteDialog />
-      </div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex gap-8">
+          <Userform type="edit" user={row.original} />
+          <DeleteDialog userId={row.original["id"]} />
+        </div>
+      );
+    },
   },
 ];
 

@@ -1,3 +1,5 @@
+import { deleteUser } from "@/app/actions";
+import { UserProps } from "@/app/settings/types";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,10 +9,13 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
+import React, { FC } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-const DeleteDialog = () => {
+const DeleteDialog: FC<{ userId: string }> = (props) => {
+  const handleDeleteUser = () => {
+    deleteUser(props.userId);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,7 +41,7 @@ const DeleteDialog = () => {
             </Button>
           </DialogClose>
           <Button
-            type="submit"
+            onClick={handleDeleteUser}
             className=" bg-custom-pl-red text-custom-red flex gap-2"
           >
             <RiDeleteBin6Line color={"#D42620"} />

@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
 
-const BreadCrumbs: FC<{ subPath: string }> = (props) => {
+const BreadCrumbs: FC<{ subPath?: string }> = (props) => {
   const pathname = usePathname();
   return (
     <p className="text-custom-gray-300">

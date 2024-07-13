@@ -1,3 +1,4 @@
+'use client'
 import { UserProps } from '@/app/settings/types'
 import Userform from '@/components/common/Forms'
 import { UserTable } from '@/components/common/Table'
