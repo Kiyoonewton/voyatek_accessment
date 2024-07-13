@@ -31,16 +31,21 @@ const config = {
       },
       colors: {
         "custom-dark": "#475569",
+        "custom-dark-100": "#1D2739",
         "custom-gray": "#F0F2F5",
         "custom-gray-100": "#667185",
         "custom-gray-200": "#344054",
         "custom-gray-300": "#98A2B3",
+        "custom-gray-400": "#F7F9FC",
+        "custom-gray-500": "#D0D5DD",
         "custom-blue": "#0D6EFD",
         "custom-pl-blue": "#F0F6FE",
         "custom-green": "#0F973D",
         "custom-pl-green": "#E7F6EC",
         "custom-orange": "#F58A07",
         "custom-pl-orange": "#FEF4E6",
+        "custom-red": "#D42620",
+        "custom-pl-red": "#FBEAE9",
       },
       keyframes: {
         "accordion-down": {

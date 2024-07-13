@@ -1,3 +1,4 @@
+import Userform from '@/components/common/Forms'
 import { UserTable } from '@/components/common/Table'
 import { Button } from '@/components/ui/button'
 import React from 'react'
@@ -21,10 +22,7 @@ const TableComponent = () => {
             Filter
           </Button>
         </div>
-        <Button className="bg-blue-700 flex gap-1">
-          <CiCirclePlus size={20} />
-          New User
-        </Button>
+        <Userform type="create"/>
       </div>
       <UserTable />
     </>
